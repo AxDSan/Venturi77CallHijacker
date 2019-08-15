@@ -1,0 +1,14 @@
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77Hijacker.exe.config
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77Hijacker.exe
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77Hijacker.pdb
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\dnlib.dll
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77CallHijacker.dll
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77CallHijacker.pdb
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\Venturi77CallHijacker.dll.config
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\bin\Debug\dnlib.xml
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\obj\Debug\Venturi77Hijacker.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\obj\Debug\Venturi77Hijacker.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\obj\Debug\Venturi77Hijacker.csproj.CopyComplete
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\obj\Debug\Venturi77Hijacker.exe
+C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77Hijacker\obj\Debug\Venturi77Hijacker.pdb
