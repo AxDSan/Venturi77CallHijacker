@@ -1,9 +1,0 @@
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\bin\Debug\Venturi77CallHijacker.dll.config
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\bin\Debug\Venturi77CallHijacker.dll
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\bin\Debug\Venturi77CallHijacker.pdb
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\obj\Debug\Venturi77CallHijacker.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\obj\Debug\Venturi77CallHijacker.csproj.CopyComplete
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\obj\Debug\Venturi77CallHijacker.dll
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\obj\Debug\Venturi77CallHijacker.pdb
-C:\Users\Administrator\source\repos\Venturi77CallHijacker\Venturi77CallHijacker\obj\Debug\Venturi77CallHijacker.csprojAssemblyReference.cache
