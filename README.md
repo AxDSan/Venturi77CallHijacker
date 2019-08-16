@@ -1,3 +1,5 @@
+![](https://i.imgur.com/dyrenKI.png)
+
 # Venturi77CallHijacker
  KoiVM,EazVM,AgileVM Patcher - Seguiré actualizando (Esta es una versión apresurada, agregaré todas las características mañana. ¡Esperen muchas actualizaciones!) Guía detallada mañana.
 
@@ -11,7 +13,7 @@ Ejecute el VenturiCallHijacker.exe y cree una configuración de depuración.
 
 Se debe guardar una configuración en Config.Json del directorio ejecutado.
 
-Ejecute el secuestrador de llamadas nuevamente e inyecte el dll, la detección automática funciona perfectamente.
+Ejecute el VenturiCallHijacker.exe nuevamente e inyecte el dll, la detección automática funciona de maravillas.
 
 Ahora, después de haber inyectado el dll, puede ejecutar el .exe en el que lo inyectó y
 
