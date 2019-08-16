@@ -1,65 +1,66 @@
 # Venturi77CallHijacker
- KoiVM,EazVM,AgileVM Patcher - Will Keep On Updating (This is a rushed release, i will add all the features tomorrow. Expect lots of updates!) Detailed Guide TomorrowTM
+ KoiVM,EazVM,AgileVM Patcher - Seguiré actualizando (Esta es una versión apresurada, agregaré todas las características mañana. ¡Esperen muchas actualizaciones!) Guía detallada mañana.
 
-Team Venturi77 Members (Current):
+Team Venturi77 Miembros Actuales:
 
 TobitoFatito - https://github.com/TobitoFatitoNulled/
-
 XSilent007 - https://github.com/XSilent007/
 
-# How To Use
-Run the venturi call hijacker exe and create a debug config.
+# Como usar:
+Ejecute el venturi call secuestrador exe y cree una configuración de depuración.
 
-A Config should be saved on Config.Json of the directory executed.
+Se debe guardar una configuración en Config.Json del directorio ejecutado.
 
-Run call hijacker again and inject the dll, automatic detection works perfectly.
+Ejecute el secuestrador de llamadas nuevamente e inyecte el dll, la detección automática funciona perfectamente.
 
-Now after you have injected the dll you can run the .exe that you injected it into and
+Ahora, después de haber inyectado el dll, puede ejecutar el .exe en el que lo inyectó y
 
-it should leave a debug.txt that contains the information of the calls that were handled
+debería dejar un debug.txt que contenga la información de las llamadas que se manejaron
 
-Ex: https://i.imgur.com/Ekomjuc.png
+Ej: https://i.imgur.com/Ekomjuc.png
 
-Now you can just create a new config and according to the debug txt you can
+Ahora puede crear una nueva configuración y, según el txt de depuración, puede
 
-make it patch the calls. 
+haz que parche las llamadas.
 
-Example of method that needs Patching:
+Ejemplo de método que necesita parchear:
 
 https://i.imgur.com/goFjTTm.png
 
-Example of config made for the method:
+Ejemplo de configuración hecha para el método:
 
 https://i.imgur.com/1Qd1nHH.png
 
-Care: You need to have the config.json on the same directory that the .exe is.
+Cuidado: debe tener config.json en el mismo directorio que el .exe.
 # Bugs:
 
-Agile,Eaz injection is buggy some files wont inject, will fix really soon.
+Ágil, la inyección Eaz tiene errores, algunos archivos no se inyectan, se solucionarán muy pronto.
 
-If you have a program to inject that is eaz/agile and wont work you can inject
+Si tiene un programa para inyectar que es eaz / agile y no funciona, puede inyectar
 
-it yourself with dnlib. How? 
+usted mismo con dnlib. ¿Cómo?
 
-On eaz you can follow the calls with the parameters like this
+En eaz puedes seguir las llamadas con parámetros como este
 
 https://i.imgur.com/YLeVeTm.png
 
-till you find this 
+hasta que encuentres esto
 
 https://i.imgur.com/TWq3R3V.png
 
-Then just Control+f and search for .Invoke till you find this method:
+Luego simplemente Control + F y busca ".Invoke" hasta que encuentre este método:
 
 https://i.imgur.com/2kzcHMj.png
 
-Now just edit il instructions, make sure the venturi dll is on the same directory
+Ahora solo edite las instrucciones, asegúrese de que el dll venturi esté en el mismo directorio
 
-and that you have added it on dnlib and just edit the call like this https://i.imgur.com/0Ur15Bz.png
+y que lo haya agregado en dnlib y simplemente edite la llamada de esta manera https://i.imgur.com/0Ur15Bz.png
 
-Click OK https://i.imgur.com/qDfliTe.png and after that make sure to click on the .HandleInvoke so you can see the dll.
+Haz clic en Aceptar https://i.imgur.com/qDfliTe.png y luego asegurate de hacer clic en ".HandleInvoke" para que pueda ver el archivo DLL.
 
-Now you just save the assembly with keeping MDToken settings.
+Ahora solo guarda el ensamblaje manteniendo la configuración de MDToken.
 
-Injection done you can just make configs now to debug/patch
+Inyección realizada, ahora lo unico que falta es hacer las configuraciones pertinentes para depurar/parchear :D
+
+Feliz Reversing! :D
 
