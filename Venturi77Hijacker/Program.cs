@@ -241,43 +241,43 @@ namespace Venturi77Hijacker {
             TypeDef[] array = Module.Types.ToArray<TypeDef>();
             for (int i = 0; i < array.Length; i++) {
                 foreach (MethodDef method in array[i].Methods.ToArray<MethodDef>()) {
-                    bool flag = method.HasBody && method.Body.HasInstructions && !method.FullName.Contains("My.") && !method.FullName.Contains(".My") && !method.IsConstructor && !method.DeclaringType.IsGlobalModuleType;
+                    bool flag = method.HasBody && method.Body.HasInstructions && method.Body.Instructions.Count() >=15 && !method.FullName.Contains("My.") && !method.FullName.Contains(".My") && !method.IsConstructor && !method.DeclaringType.IsGlobalModuleType;
                     if (flag) {
                         for (int j = 0; j < method.Body.Instructions.Count - 1; j++) {
-                            if (method.Body.Instructions[j].OpCode == OpCodes.Ldarg_0) {
-                                if (method.Body.Instructions[j + 1].OpCode == OpCodes.Ldarg_1) {
-                                    if (method.Body.Instructions[j + 2].OpCode == OpCodes.Ldarg_2) {
-                                        if (method.Body.Instructions[j + 3].OpCode == OpCodes.Callvirt) {
-                                            if (method.Body.Instructions[j + 4].OpCode == OpCodes.Ret) {
-                                                if (method.Body.Instructions[j + 5].OpCode == OpCodes.Ldloc_0) {
-                                                    method.Body.Instructions[j + 3].OpCode = OpCodes.Call;
-                                                    method.Body.Instructions[j + 3].Operand = method.Module.Import(ModuleDefMD.Load("Venturi77CallHijacker.dll").Types.Single(t => t.IsPublic && t.Name == "Handler").Methods.Single(m => m.Name == "HandleInvoke"));
-                                                    injected = true;
-                                                }
-
-                                            }
+                            if (method.Body.Instructions[j].OpCode == OpCodes.Callvirt) {
+                               if(j<=4) {
+                                    continue;
+                                }
+                                if (method.Body.Instructions[j - 1].OpCode == OpCodes.Ldarg_3 || method.Body.Instructions[j - 1].OpCode == OpCodes.Ldarg_2) {
+                                    if (method.Body.Instructions[j - 2].OpCode == OpCodes.Ldarg_2 || method.Body.Instructions[j - 2].OpCode == OpCodes.Ldarg_1) {
+                                        if (method.Body.Instructions[j - 3].OpCode == OpCodes.Ldarg_1 || method.Body.Instructions[j - 3].OpCode == OpCodes.Ldarg_0) {
+                                            Importer importer = new Importer(Module);
+                                            IMethod Method;
+                                            Method = importer.Import(typeof(Venturi77CallHijacker.Handler).GetMethod("HandleInvoke"));
+                                            method.Body.Instructions[j].Operand = Module.Import(Method);
+                                            method.Body.Instructions[j].OpCode = OpCodes.Call;
+                                            injected = true;
                                         }
 
                                     }
-
                                 }
                             }
                         }
                     }
                 }
-
+            
+        
             }
             if (!injected) {
                 return injected;
             }
-            ModuleWriterOptions nativeModuleWriterOptions = new ModuleWriterOptions(Module);
-            nativeModuleWriterOptions.MetadataOptions.Flags = MetadataFlags.KeepOldMaxStack;
-            nativeModuleWriterOptions.Logger = DummyLogger.NoThrowInstance;
-            nativeModuleWriterOptions.MetadataOptions.Flags = MetadataFlags.PreserveAll;
-            nativeModuleWriterOptions.Cor20HeaderOptions.Flags = new ComImageFlags?(ComImageFlags.ILOnly);
-            var otherstrteams = Module.Metadata.AllStreams.Where(a => a.GetType() == typeof(DotNetStream));
-            nativeModuleWriterOptions.MetadataOptions.PreserveHeapOrder(Module, addCustomHeaps: true);
-            Module.Write(Path.Combine(Path.GetDirectoryName(Pathh), Path.GetFileNameWithoutExtension(Pathh) + "_Injected" + ".exe"), nativeModuleWriterOptions);
+            ModuleWriterOptions moduleWriterOptions = new ModuleWriterOptions(Module);
+            moduleWriterOptions.MetadataOptions.Flags = MetadataFlags.KeepOldMaxStack;
+            moduleWriterOptions.Logger = DummyLogger.NoThrowInstance;
+            moduleWriterOptions.MetadataOptions.Flags = MetadataFlags.PreserveAll;
+            moduleWriterOptions.MetadataOptions.PreserveHeapOrder(Module, true);
+            moduleWriterOptions.Cor20HeaderOptions.Flags = new ComImageFlags?(ComImageFlags.ILOnly | ComImageFlags.Bit32Required);
+            Module.Write(Pathh + "_Injected.exe", moduleWriterOptions);
             File.Copy("Venturi77CallHijacker.dll", Path.GetDirectoryName(Pathh) + "\\Venturi77CallHijacker.dll");
             File.Copy("Newtonsoft.Json.dll", Path.GetDirectoryName(Pathh )+ "\\Newtonsoft.Json.dll");
             return injected;
@@ -296,7 +296,10 @@ namespace Venturi77Hijacker {
                                         if (method.Body.Instructions[j + 3].OpCode == OpCodes.Callvirt) {
                                             if (method.Body.Instructions[j + 4].OpCode == OpCodes.Stloc_S) {
                                                 method.Body.Instructions[j + 3].OpCode = OpCodes.Call;
-                                                method.Body.Instructions[j + 3].Operand = method.Module.Import(ModuleDefMD.Load("Venturi77CallHijacker.dll").Types.Single(t => t.IsPublic && t.Name == "Handler").Methods.Single(m => m.Name == "HandleInvoke"));
+                                                Importer importer = new Importer(Module);
+                                                IMethod Method;
+                                                Method = importer.Import(typeof(Venturi77CallHijacker.Handler).GetMethod("HandleInvoke"));
+                                                method.Body.Instructions[j+3].Operand = Module.Import(Method);
                                                 injected = true;
                                             }
                                         }
