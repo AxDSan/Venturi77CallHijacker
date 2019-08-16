@@ -7,7 +7,7 @@ TobitoFatito - https://github.com/TobitoFatitoNulled/
 XSilent007 - https://github.com/XSilent007/
 
 # Como usar:
-Ejecute el venturi call secuestrador exe y cree una configuración de depuración.
+Ejecute el VenturiCallHijacker.exe y cree una configuración de depuración.
 
 Se debe guardar una configuración en Config.Json del directorio ejecutado.
 
