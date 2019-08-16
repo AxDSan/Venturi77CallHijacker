@@ -18,7 +18,7 @@ namespace Venturi77CallHijacker {
                     } catch {
                         objj = null;
                     }
-                    string debug = "Calling Method: " + method.ToString() + "\nMethodName: " + method.Name + "\nParameters: ";
+                    string debug = "Calling Method: " + method.ToString() + "\nMethodName: " + method.Name + "\nParameters: \n";
                    for(int i = 0; i<Parameters.Length; i++) {
                         debug += "Param[" + i + "]" + " Value: " + Parameters[i].ToString()+ "\n";
                     }
