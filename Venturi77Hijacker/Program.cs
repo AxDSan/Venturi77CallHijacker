@@ -45,7 +45,7 @@ namespace Venturi77Hijacker {
             var key = Console.ReadKey();
             Console.Clear();
             if (key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1) {
-                obf = DetectObfuscator(Module);
+                obf = DetectObfuscator(Module,Path);
                 Console.WriteLine("Detected: " + obf);
                
             }
@@ -73,11 +73,12 @@ namespace Venturi77Hijacker {
                 return;
             }
             if(obf == Obfuscator.AgileVM) {
-                if (InjectAgileVM(Module, Path)) {
-                    Console.WriteLine("Successfully Injected AgileVM");
-                } else {
-                    Console.WriteLine("Failed Injecting AgileVM");
-                }
+                /*  if (InjectAgileVM(Module, Path)) {
+                      Console.WriteLine("Successfully Injected AgileVM");
+                  } else {
+                      Console.WriteLine("Failed Injecting AgileVM");
+                  }*/
+                Console.WriteLine("Some Issues With Agile Will Fix In A Bit!");
                 Console.ReadLine();
                 return;
             }
@@ -196,18 +197,20 @@ namespace Venturi77Hijacker {
             return input;
         }
         public static bool InjectAgileVM(ModuleDefMD Module, string Pathh) {
-            Pathh = Path.GetDirectoryName(Pathh) + "\\AgileDotNet.VMRuntime.dll";
-            Module = ModuleDefMD.Load(Pathh);
             bool injected = false;
             TypeDef[] array = Module.Types.ToArray<TypeDef>();
             for (int i = 0; i < array.Length; i++) {
                 foreach (MethodDef method in array[i].Methods.ToArray<MethodDef>()) {
-                    if(method.HasBody && method.Body.HasInstructions && method.Body.Instructions.Count() >= 60) {
-                        if(method.Body.Instructions[45].OpCode == OpCodes.Callvirt) {
-                            if(method.Body.Instructions[45].ToString().Contains("System.Reflection.MethodBase::Invoke(System.Object,System.Object[])")) {
-                                method.Body.Instructions[45].Operand = method.Module.Import(ModuleDefMD.Load("Venturi77CallHijacker.dll").Types.Single(t => t.IsPublic && t.Name == "Handler").Methods.Single(m => m.Name == "HandleInvoke"));
-                                injected = true;
-                            }
+                    if(method.HasBody && method.Body.HasInstructions) {
+                        for (int d = 0; d < method.Body.Instructions.Count(); d++) {
+
+                            if(method.Body.Instructions[d].OpCode == OpCodes.Callvirt) {
+                                if (method.Body.Instructions[d].ToString().Contains("System.Reflection.MethodBase::Invoke(System.Object,System.Object[])") && method.Body.Instructions[d + 1].IsStloc() && method.Body.Instructions[d - 1].IsLdarg() && method.Body.Instructions[d - 3].IsLdarg()) {
+                                    method.Body.Instructions[d].Operand = method.Module.Import(ModuleDefMD.Load("Venturi77CallHijacker.dll").Types.Single(t => t.IsPublic && t.Name == "Handler").Methods.Single(m => m.Name == "HandleInvoke"));
+                                    injected = true;
+                                }
+                        }
+                           
                         }
                     }
                 }
@@ -220,11 +223,17 @@ namespace Venturi77Hijacker {
             nativeModuleWriterOptions.Logger = DummyLogger.NoThrowInstance;
             nativeModuleWriterOptions.MetadataOptions.Flags = MetadataFlags.PreserveAll;
             nativeModuleWriterOptions.Cor20HeaderOptions.Flags = new ComImageFlags?(ComImageFlags.ILOnly);
-            var otherstrteams = Module.Metadata.AllStreams.Where(a => a.GetType() == typeof(DotNetStream));
-            nativeModuleWriterOptions.MetadataOptions.PreserveHeapOrder(Module, addCustomHeaps: true);
-            Module.Write(Path.Combine(Path.GetDirectoryName(Pathh) , Path.GetFileNameWithoutExtension(Pathh) + "_Inj.dll"), nativeModuleWriterOptions);
+            
+          //  var otherstrteams = Module.Metadata.AllStreams.Where(a => a.GetType() == typeof(DotNetStream));
+          //  nativeModuleWriterOptions.MetadataOptions.PreserveHeapOrder(Module, addCustomHeaps: true);
+            Module.Write(Pathh, nativeModuleWriterOptions);
+
+
+
+            // File.Delete(Pathh);
+          
             File.Copy("Venturi77CallHijacker.dll", Path.GetDirectoryName(Pathh) + "\\Venturi77CallHijacker.dll");
-            File.Copy("Newtonsoft.Json.dll", Path.GetDirectoryName(Pathh + "\\Newtonsoft.Json.dll"));
+            File.Copy("Newtonsoft.Json.dll", Path.GetDirectoryName(Pathh)+ "\\Newtonsoft.Json.dll");
             return injected;
         }
         public static bool InjectEazVM(ModuleDefMD Module, string Pathh) {
@@ -312,10 +321,10 @@ namespace Venturi77Hijacker {
             nativeModuleWriterOptions.MetadataOptions.PreserveHeapOrder(Module, addCustomHeaps: true);
             Module.Write(Path.Combine(Path.GetDirectoryName(Pathh),Path.GetFileNameWithoutExtension(Pathh) + "_Injected" + ".exe"), nativeModuleWriterOptions);
             File.Copy("Venturi77CallHijacker.dll", Path.GetDirectoryName(Pathh) + "\\Venturi77CallHijacker.dll");
-            File.Copy("Newtonsoft.Json.dll", Path.GetDirectoryName(Pathh + "\\Newtonsoft.Json.dll"));
+            File.Copy("Newtonsoft.Json.dll", Path.GetDirectoryName(Pathh)+ "\\Newtonsoft.Json.dll");
             return injected;
         }
-        public static Obfuscator DetectObfuscator(ModuleDefMD Module) {
+        public static Obfuscator DetectObfuscator(ModuleDefMD Module,string Path) {
             if(Module.GetAssemblyRefs().Where(q=>q.ToString().Contains("AgileDotNet.VMRuntime")).ToArray().Count() > 0){
                 return Obfuscator.AgileVM;
             }
